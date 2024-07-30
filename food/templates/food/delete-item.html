@@ -1,0 +1,7 @@
+<h1>Are you sure You want to delete <br> {{item.item_name}}</h1>
+<form method="post">
+    {% csrf_token %}
+    <button type="submit" >Confirm</button>
+</form>
+
+<a href="{%url 'food:detail' item.id%}"class=button>cancel</a>
