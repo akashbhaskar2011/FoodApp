@@ -6,11 +6,11 @@ from django.contrib import messages
 # Create your views here.
 def register(request):
     if request.method == 'POST':
-        form=UserCreationForm(request.POST)
-        if form.is_valid :
-            username=form.cleaned_data.get('username')
-            message=messages.success(request,f'The user {username} created suceefully')
+        form = UserCreationForm(request.POST)
+        if form.is_valid(): 
+            username = form.cleaned_data.get('username')
+            messages.success(request, f'The user {username} was created successfully')
             return redirect('food:index')
     else:
-     form=UserCreationForm()
-    return render(request,'users/registration.html',{'form':form})
+        form = UserCreationForm()
+    return render(request, 'users/registration.html', {'form': form})

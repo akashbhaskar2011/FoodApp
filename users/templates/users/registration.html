@@ -1,5 +1,5 @@
-<form action="POST">
-    {%csrf_token%}
-    {{form}} 
-    <button type="submit">SignUp</button>
+<form method="POST" action="{% url 'register' %}">
+    {% csrf_token %}
+    {{ form }} 
+    <button type="submit">Sign Up</button>
 </form>
