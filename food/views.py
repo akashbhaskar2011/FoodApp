@@ -4,6 +4,7 @@ from .models import Item
 # from django.template import loader
 from django.shortcuts import render ,redirect
 from .forms import Item_form
+from django.views.generic.list import ListView
 
 # Create your views here.
 def index(request):
@@ -14,6 +15,13 @@ def index(request):
     }
     return render(request,'food/index.html',context)
     # return HttpResponse(template.render(context,request))
+
+
+class IndexClassView(ListView):
+    model=Item
+    template_name='food/index.html'
+    context_object_name='item_list'
+
 
 def item(request):
     return HttpResponse(f"<h1>items </h1>")
@@ -28,7 +36,9 @@ def detail(request,item_id):
 def create_item(request):
     form=Item_form(request.POST or None)
     if form.is_valid():
-        form.save()
+        item = form.save(commit=False)
+        item.user_name = request.user  # Assign the logged-in user
+        item.save()
         return redirect('food:index')
     return render(request,'food/item-form.html',{'form':form})
 
